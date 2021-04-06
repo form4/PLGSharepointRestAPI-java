@@ -148,7 +148,15 @@ public interface PLGSharepointClient {
 	 * @throws Exception
 	 */
 	JSONObject updateFolderMetadata(String folderServerRelatUrl, JSONObject jsonMetadata) throws Exception;
-	
+
+	/**
+	 *
+	 * @param jsonMetadata
+	 * @return
+	 * @throws Exception
+	 */
+	JSONObject updateSiteMetadata(JSONObject jsonMetadata) throws Exception;
+
 	/**
 	 * @param folder
 	 * @return

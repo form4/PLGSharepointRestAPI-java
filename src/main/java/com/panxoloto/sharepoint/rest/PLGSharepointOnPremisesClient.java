@@ -582,6 +582,35 @@ public class PLGSharepointOnPremisesClient implements PLGSharepointClient {
 	    LOG.debug("Updated file metadata Status {}", responseEntity1.getStatusCode());
 	    return new JSONObject(responseEntity1);
 	}
+
+	/**
+	 *
+	 * @param jsonMetadata
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public JSONObject updateSiteMetadata(JSONObject jsonMetadata) throws Exception {
+		JSONObject meta = new JSONObject();
+		if (jsonMetadata.has("type")) {
+			meta.put("type", jsonMetadata.get("type"));
+		} else {
+			meta.put("type", "SP.Web");
+		}
+		jsonMetadata.put("__metadata", meta);
+		String metadata = jsonMetadata.toString();
+		MultiValueMap<String, String> headers = headerHelper.getUpdateHeaders(metadata);
+		LOG.debug("Updating site adding metadata {}", jsonMetadata);
+
+		RequestEntity<String> requestEntity1 = new RequestEntity<>(metadata,
+				headers, HttpMethod.POST,
+				this.tokenHelper.getSharepointSiteUrl("/_api/web/")
+		);
+		ResponseEntity<String> responseEntity1 =
+				restTemplate.exchange(requestEntity1, String.class);
+		LOG.debug("Updated site metadata Status {}", responseEntity1.getStatusCode());
+		return new JSONObject(responseEntity1);
+	}
 	
 	/**
 	 * @param folder
