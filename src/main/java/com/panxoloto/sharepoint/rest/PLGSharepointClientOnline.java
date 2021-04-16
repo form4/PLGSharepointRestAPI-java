@@ -551,7 +551,7 @@ public class PLGSharepointClientOnline implements PLGSharepointClient {
 
 		RequestEntity<String> requestEntity1 = new RequestEntity<>(metadata,
 				headers, HttpMethod.POST,
-				this.tokenHelper.getSharepointSiteUrl("/_api/web/")
+				this.tokenHelper.getSharepointSiteUrl("/_api/web")
 		);
 		ResponseEntity<String> responseEntity1 =
 				restTemplate.exchange(requestEntity1, String.class);
